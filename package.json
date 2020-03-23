@@ -1,5 +1,6 @@
 {
   "name": "freeshka",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
@@ -9,8 +10,10 @@
     "stimulus": "^1.1.1",
     "turbolinks": "^5.2.0"
   },
-  "version": "0.1.0",
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.0",
+    "cssnano": "^4.1.10",
+    "tailwindcss": "^1.2.0",
     "webpack-dev-server": "^3.10.3"
   }
 }

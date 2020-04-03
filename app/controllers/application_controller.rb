@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
-  # def after_sign_in_path_for(resource)
-  #   stored_location_for(resource) || me_path_url
-  # end
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || profile_path
+  end
 
   private
 

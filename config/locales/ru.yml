@@ -1,0 +1,8 @@
+ru:
+  login:
+    header: "Войти в аккаунт"
+    email: "Почта"
+    password: "Пароль"
+    remember: "Запомнить меня"
+    forgot: "Забыли ваш пароль?"
+    submit: "Войти"

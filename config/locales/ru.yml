@@ -1,4 +1,7 @@
 ru:
+  menu:
+    login: "Войти"
+    register: "Создать аккаунт"
   login:
     header: "Войти в аккаунт"
     email: "Почта"

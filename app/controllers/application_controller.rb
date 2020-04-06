@@ -8,10 +8,11 @@ class ApplicationController < ActionController::Base
   private
 
   def layout_by_resource
-    if devise_controller?
-      'base'
-    else
-      'application'
-    end
+    'application'
+    # if devise_controller?
+    #   'base'
+    # else
+    #   'application'
+    # end
   end
 end

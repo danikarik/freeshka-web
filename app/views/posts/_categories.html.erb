@@ -1,0 +1,14 @@
+<ul>
+  <% @categories.each do |category| %>
+    <li><%= category.name %></li>
+    <div class="pl-16">
+      <% if category.categories.count > 0 %>
+        <ul>
+          <% category.categories.each do |subcategory| %>
+            <li><%= subcategory.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+</ul>

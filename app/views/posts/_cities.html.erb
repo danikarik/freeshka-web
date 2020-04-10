@@ -1,0 +1,14 @@
+<ul>
+  <% @top_level_cities.each do |top_city| %>
+    <li><%= top_city.name %></li>
+    <div class="pl-16">
+    <% if top_city.cities.count > 0 %>
+      <ul>
+        <% top_city.cities.each do |city| %>
+          <li><%= city.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    </div>
+  <% end %>
+</ul>

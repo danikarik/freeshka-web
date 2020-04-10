@@ -20,6 +20,16 @@
     <%= form.rich_text_area :content %>
   </div>
 
+  <div class="field">
+    <%= form.label :categories %>
+    <%= form.collection_select :category_ids, category_options, :id, :name, { include_hidden: false }, { multiple: true } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cities %>
+    <%= form.collection_select :city_ids, city_options, :id, :name, { include_hidden: false }, { multiple: true } %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

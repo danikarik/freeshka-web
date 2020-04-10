@@ -6,6 +6,8 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
+    @top_level_cities = City.all.where(parent_id: nil)
+    @categories = Category.all.where(parent_id: nil)
   end
 
   # GET /posts/1
@@ -16,6 +18,8 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @category_options = Category.all.where(parent: nil)
+    @city_options = City.all.where(parent: nil)
   end
 
   # GET /posts/1/edit
@@ -26,6 +30,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
 
     respond_to do |format|
       if @post.save
@@ -70,6 +75,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.require(:post).permit(:title, :content, :category_ids => [], :city_ids => [])
     end
 end

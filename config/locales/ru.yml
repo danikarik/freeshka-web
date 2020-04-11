@@ -20,3 +20,5 @@ ru:
     confirmation: "Повторный ввод пароля"
     minimum: "минимальная длина"
     submit: "Создать"
+  post:
+    created_by: "Опубликовано от %{user} %{created_at} назад"

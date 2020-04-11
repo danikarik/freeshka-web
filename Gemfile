@@ -58,3 +58,5 @@ gem "devise", "~> 4.7"
 gem "rubocop", "~> 0.80.1"
 
 gem "solargraph", group: :development
+
+gem "rails-i18n", "~> 6.0"

@@ -1,0 +1,44 @@
+<div class="container mx-auto flex">
+
+  <div class="w-2/12">
+    <h5 class="font-semibold">My Rooms</h5>
+    <ul>
+      <% current_user.rooms.each do |room| %>
+        <li><%= link_to room.name, room, data: { behavior: "room-link", room_id: room.id }  %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="w-10/12">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Rooms</h1>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="4"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @rooms.each do |room| %>
+        <tr>
+          <td><%= room.name %></td>
+          <td><%= link_to 'Show', room %></td>
+          <td><%= link_to 'Edit', edit_room_path(room) %></td>
+          <td><%= link_to 'Destroy', room, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          <td><%= link_to 'Join', room_room_users_path(room), method: :post  %></td>
+          <td><%= link_to 'Leave', room_room_users_path(room), method: :delete  %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Room', new_room_path %>
+  </div>
+
+</div>

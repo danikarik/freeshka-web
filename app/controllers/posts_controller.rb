@@ -67,18 +67,19 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    def load_dict
-      @category_options = Category.all.where(parent: nil)
-      @city_options = City.all.where(parent: nil)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :content, :category_ids => [], :city_ids => [])
-    end
+  def load_dict
+    @category_options = Category.all.where(parent: nil)
+    @city_options = City.all.where(parent: nil)
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:title, :content, category_ids: [], city_ids: [])
+  end
 end

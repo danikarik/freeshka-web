@@ -6,14 +6,16 @@
   <%= @room.name %>
 </p>
 
-<div data-behavior="messages" data-room-id="<%= @room.id %>">
-  <% @messages.each do |message| %>
-    <%= render 'messages/message', message: message %>
-  <% end %>
-</div>
+<div data-controller="chat" data-chat-room="<%= @room.id %>">
 
-<div data-controller="message">
-<%= form_with(model: [@room, Message.new], data: { target: 'message.form' }, remote: true) do |form| %>
-  <%= form.text_area :body, rows: 1, autofocus: true, 'data-target': 'message.input' %>
-<% end %>
+  <div data-behavior="messages">
+    <% @messages.each do |message| %>
+      <%= render 'messages/message', message: message %>
+    <% end %>
+  </div>
+
+  <%= form_with(model: [@room, Message.new], data: { target: 'chat.form' }) do |form| %>
+    <%= form.text_area :body, rows: 1, autofocus: true, 'data-target': 'chat.input' %>
+  <% end %>
+
 </div>

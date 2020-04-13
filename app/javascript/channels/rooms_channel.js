@@ -1,6 +1,18 @@
 import consumer from "./consumer"
 
-consumer.subscriptions.create("RoomsChannel", {
+function getChatContainer(data) {
+  return document.querySelectorAll(`[data-chat-room="${data.room_id}"]`)
+}
+
+function getMessages(chat) {
+  return chat[0].querySelectorAll(`[data-behavior="messages"]`)
+}
+
+function getRoomLink(data) {
+  return document.querySelectorAll(`[data-behavior="room-link"][data-room-id="${data.room_id}"]`)
+}
+
+export default consumer.subscriptions.create("RoomsChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -10,14 +22,24 @@ consumer.subscriptions.create("RoomsChannel", {
   },
 
   received(data) {
-    const activeRoom = document.querySelectorAll(`[data-behavior="messages"][data-room-id="${data.room_id}"]`)
-    if (activeRoom.length > 0) {
-      activeRoom[0].insertAdjacentHTML('beforeend', data.message)
-    } else {
-      const roomLink = document.querySelectorAll(`[data-behavior="room-link"][data-room-id="${data.room_id}"]`)
-      if (roomLink.length > 0) {
-        roomLink[0].classList.add('font-semibold')
+    const chat = getChatContainer(data)
+    if (chat.length > 0) {
+      const messages = getMessages(chat)
+      if (messages.length > 0) {
+        messages[0].insertAdjacentHTML("beforeend", data.message)
+      } else {
+        const roomLink = getRoomLink(data)
+        if (roomLink.length > 0) {
+          roomLink[0].classList.add("font-semibold")
+        }
       }
     }
-  }
-});
+  },
+
+  sendMessage(data) {
+    this.perform("send_message", {
+      room_id: data.room,
+      body: data.body,
+    })
+  },
+})

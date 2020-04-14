@@ -7,9 +7,14 @@
 </p>
 
 <div data-controller="chat" data-chat-room="<%= @room.id %>">
+  <% unread_messages = false %>
 
   <div data-behavior="messages">
     <% @messages.each do |message| %>
+      <% if !unread_messages && @room_user.last_read_at < message.created_at %>
+        <% unread_messages = true %>
+        <hr>
+      <% end %>
       <%= render 'messages/message', message: message %>
     <% end %>
   </div>

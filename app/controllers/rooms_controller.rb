@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1.json
   def show
     @messages = @room.messages.order(created_at: :desc).limit(100).reverse
+    @room_user = current_user.room_users.find_by(room_id: @room.id)
   end
 
   # GET /rooms/new

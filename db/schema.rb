@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_122210) do
   create_table "room_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "room_id", null: false
     t.bigint "user_id", null: false
+    t.datetime "last_read_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_room_users_on_room_id"

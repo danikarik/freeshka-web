@@ -27,6 +27,10 @@ export default consumer.subscriptions.create("RoomsChannel", {
       const messages = getMessages(chat)
       if (messages.length > 0) {
         messages[0].insertAdjacentHTML("beforeend", data.message)
+
+        if (document.hidden && Notification.permission === "granted") {
+          new Notification(data.user, { body: data.body })
+        }
       } else {
         const roomLink = getRoomLink(data)
         if (roomLink.length > 0) {

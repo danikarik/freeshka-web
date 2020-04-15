@@ -7,31 +7,28 @@ export default class extends Controller {
 
   connect() {
     this.inputTarget.addEventListener("keypress", this.handleEnterPressed())
-    document.addEventListener("click", this.handleVisibilityChanged())
+    document.addEventListener("click", this.handleActivityResume())
   }
 
   disconnect() {
     this.inputTarget.removeEventListener("keypress", this.handleEnterPressed())
-    document.removeEventListener("click", this.handleVisibilityChanged())
+    document.removeEventListener("click", this.handleActivityResume())
   }
 
   send() {
-    const data = {
+    roomChannel.sendMessage({
       room: this.room,
       body: this.inputTarget.value,
-    }
-
-    roomChannel.sendMessage(data)
+    })
 
     this.inputTarget.value = ""
   }
 
   update() {
-    const strikes = document.getElementsByTagName("hr")
-    if (strikes.length > 0) {
+    const divider = document.getElementById("unread")
+    if (divider !== null) {
       lastReadChannel.update({ room: this.room })
-
-      while (strikes[0]) strikes[0].parentNode.removeChild(strikes[0])
+      divider.parentNode.removeChild(divider)
     }
   }
 
@@ -39,12 +36,14 @@ export default class extends Controller {
     return (e) => {
       if (e.keyCode === 13) {
         e.preventDefault()
-        this.send()
+        if (this.inputTarget.value !== "") {
+          this.send()
+        }
       }
     }
   }
 
-  handleVisibilityChanged() {
+  handleActivityResume() {
     return (e) => {
       this.update()
     }

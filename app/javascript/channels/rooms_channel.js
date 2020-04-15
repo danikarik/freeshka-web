@@ -28,8 +28,8 @@ export default consumer.subscriptions.create("RoomsChannel", {
       const messages = getMessages(chat)
       if (messages.length > 0) {
         if (document.hidden) {
-          if (document.getElementsByTagName("hr").length == 0) {
-            messages[0].insertAdjacentHTML("beforeend", "<hr>")
+          if (document.getElementById("unread") === null) {
+            messages[0].insertAdjacentHTML("beforeend", data.divider)
           }
 
           if (Notification.permission === "granted") {

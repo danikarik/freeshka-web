@@ -4,6 +4,7 @@ class MessageRelayJob < ApplicationJob
   def perform(message)
     ActionCable.server.broadcast "rooms:#{message.room.id}", {
       message: MessagesController.render(message),
+      divider: ApplicationController.render(partial: 'messages/divider'),
       user: message.user.email,
       body: message.body,
       room_id: message.room.id

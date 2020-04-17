@@ -7,7 +7,7 @@
 
   <div data-controller="chat" data-chat-room="<%= @room.id %>">
 
-    <div class="p-4 rounded bg-gray-400 overflow-y-scroll h-64" data-behavior="messages" data-target="chat.container">
+    <div class="p-4 rounded bg-gray-400 overflow-y-scroll h-160" data-behavior="messages" data-target="chat.container">
       <%= render 'messages/list', messages: @message, room_user: @room_user %>
     </div>
 

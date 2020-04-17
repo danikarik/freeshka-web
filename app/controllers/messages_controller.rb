@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     message.user = current_user
     message.save
 
-    MessageRelayJob.perform_later(message, current_user)
+    MessageRelayJob.perform_later(message)
   end
 
   private

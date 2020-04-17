@@ -13,7 +13,7 @@ class RoomsChannel < ApplicationCable::Channel
     @room = Room.find(data['room_id'])
     message = @room.messages.create(body: data['body'], user: current_user)
 
-    MessageRelayJob.perform_later(message, current_user)
+    MessageRelayJob.perform_later(message)
   end
 
   def send_last_read(data)

@@ -1,9 +1,9 @@
 class MessageRelayJob < ApplicationJob
   queue_as :default
 
-  def perform(message, current_user)
+  def perform(message)
     ActionCable.server.broadcast "rooms:#{message.room.id}", {
-      message: MessagesController.render(message, locals: { current_user_id: current_user.id }),
+      message: MessagesController.render(message, locals: { current_user_id: message.user.id }),
       divider: ApplicationController.render(partial: 'messages/divider'),
       user: message.user.email,
       body: message.body,

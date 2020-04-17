@@ -19,19 +19,23 @@ export default consumer.subscriptions.create("RoomDataChannel", {
 
   received(data) {
     const chat = getChatContainer(data)
-    if (chat.length > 0) {
-      const messages = getMessages(chat)
-      if (messages.length > 0) {
-        if (data.messages.length > 0) {
-          const currentScrollHeight = messages[0].scrollHeight
+    if (data.count > 0) {
+      if (chat.length > 0) {
+        const messages = getMessages(chat)
+        if (messages.length > 0) {
+          if (data.messages.length > 0) {
+            const currentScrollHeight = messages[0].scrollHeight
 
-          data.messages.map((message) => {
-            messages[0].insertAdjacentHTML("afterbegin", message)
-          })
+            data.messages.map((message) => {
+              messages[0].insertAdjacentHTML("afterbegin", message)
+            })
 
-          messages[0].scrollTop = messages[0].scrollHeight - currentScrollHeight
+            messages[0].scrollTop = messages[0].scrollHeight - currentScrollHeight
+          }
         }
       }
+    } else {
+      chat[0].dataset.chatNext = false
     }
   },
 

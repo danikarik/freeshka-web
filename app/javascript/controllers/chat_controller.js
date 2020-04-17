@@ -73,7 +73,7 @@ export default class extends Controller {
 
   handleTopScroll() {
     return (e) => {
-      if (this.containerTarget.scrollTop === 0) {
+      if (this.containerTarget.scrollTop === 0 && this.next) {
         this.request()
       }
     }
@@ -81,5 +81,13 @@ export default class extends Controller {
 
   get room() {
     return parseInt(this.data.get("room"))
+  }
+
+  get next() {
+    const raw = this.data.get("next").toLowerCase()
+    if (raw === "true") {
+      return true
+    }
+    return false
   }
 }

@@ -5,7 +5,7 @@
 
 <div class="container mx-auto">
 
-  <div data-controller="chat" data-chat-room="<%= @room.id %>">
+  <div data-controller="chat" data-chat-room="<%= @room.id %>" data-chat-next="<%= @messages.count > 0 ? true : false %>">
 
     <div class="p-4 rounded bg-gray-400 overflow-y-scroll h-160 flex flex-col" data-behavior="messages" data-target="chat.container">
       <%= render 'messages/list', messages: @messages, room_user: @room_user %>

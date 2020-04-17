@@ -1,0 +1,8 @@
+<% unread_messages = false %>
+<% @messages.each do |message| %>
+  <% if !unread_messages && @room_user.last_read_at && @room_user.last_read_at < message.created_at %>
+    <% unread_messages = true %>
+    <%= render 'messages/divider' %>
+  <% end %>
+  <%= render 'messages/message', message: message %>
+<% end %>

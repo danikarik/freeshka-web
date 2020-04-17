@@ -1,22 +1,12 @@
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @room.name %>
-</p>
+<p class="uppercase font-bold text-indigo-600 tracking-widest"><%= @room.name %></p>
 
-<div data-controller="chat" data-chat-room="<%= @room.id %>">
-  <% unread_messages = false %>
+<div data-controller="chat" data-chat-room="<%= @room.id %>" data-chat-last="<%= @last_id %>" data-chat-more="<%= @has_more %>" >
 
   <div data-behavior="messages">
-    <% @messages.each do |message| %>
-      <% if !unread_messages && @room_user.last_read_at && @room_user.last_read_at < message.created_at %>
-        <% unread_messages = true %>
-        <%= render 'messages/divider' %>
-      <% end %>
-      <%= render 'messages/message', message: message %>
-    <% end %>
+    <%= render 'messages/list', messages: @message, room_user: @room_user %>
   </div>
 
   <%= form_with(model: [@room, Message.new], data: { target: 'chat.form' }) do |form| %>

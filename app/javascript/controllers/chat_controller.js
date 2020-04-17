@@ -1,6 +1,5 @@
 import { Controller } from "stimulus"
 import roomChannel from "../channels/rooms_channel"
-import lastReadChannel from "../channels/last_read_channel"
 
 export default class extends Controller {
   static targets = ["form", "input"]
@@ -27,7 +26,7 @@ export default class extends Controller {
   update() {
     const divider = document.getElementById("unread")
     if (divider !== null) {
-      lastReadChannel.update({ room: this.room })
+      roomChannel.sendLastRead({ room: this.room })
       divider.parentNode.removeChild(divider)
     }
   }

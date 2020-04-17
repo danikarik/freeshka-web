@@ -1,5 +1,4 @@
 import consumer from "./consumer"
-import lastReadChannel from "./last_read_channel"
 
 function getChatContainer(data) {
   return document.querySelectorAll(`[data-chat-room="${data.room_id}"]`)
@@ -23,6 +22,7 @@ export default consumer.subscriptions.create("RoomsChannel", {
   },
 
   received(data) {
+    console.log(data)
     const chat = getChatContainer(data)
     if (chat.length > 0) {
       const messages = getMessages(chat)
@@ -33,11 +33,10 @@ export default consumer.subscriptions.create("RoomsChannel", {
           }
 
           if (Notification.permission === "granted") {
-            console.log("notification")
             new Notification(data.user, { body: data.body })
           }
         } else {
-          lastReadChannel.update({ room: data.room_id })
+          this.sendLastRead({ room: data.room_id })
         }
 
         messages[0].insertAdjacentHTML("beforeend", data.message)
@@ -55,5 +54,9 @@ export default consumer.subscriptions.create("RoomsChannel", {
       room_id: data.room,
       body: data.body,
     })
+  },
+
+  sendLastRead(data) {
+    this.perform("send_last_read", { room_id: data.room })
   },
 })

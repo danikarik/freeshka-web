@@ -15,4 +15,9 @@ class RoomsChannel < ApplicationCable::Channel
 
     MessageRelayJob.perform_later(message)
   end
+
+  def send_last_read(data)
+    room_user = current_user.room_users.find_by(room_id: data['room_id'])
+    room_user.update(last_read_at: Time.zone.now)
+  end
 end

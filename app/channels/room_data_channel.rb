@@ -1,7 +1,7 @@
 class RoomDataChannel < ApplicationCable::Channel
   def subscribed
     current_user.rooms.each do |room|
-      stream_from "rooms:#{room.id}:data"
+      stream_from "rooms:#{room.id}:data:#{current_user.id}"
     end
   end
 
@@ -10,9 +10,9 @@ class RoomDataChannel < ApplicationCable::Channel
   end
 
   def request_messages(data)
-    @room = Room.find(data['room_id'])
-    after = data['last_id']
+    room = Room.find(data['room_id'])
+    last_id = data['last_id']
 
-    MessageLoaderJob.perform_later(@room, after, current_user)
+    MessageLoaderJob.perform_later(room, last_id, current_user)
   end
 end

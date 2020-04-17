@@ -2,7 +2,13 @@ import { Controller } from "stimulus"
 import roomChannel from "../channels/rooms_channel"
 
 export default class extends Controller {
-  static targets = ["form", "input"]
+  static targets = ["form", "input", "container"]
+
+  initialize() {
+    if (this.hasContainerTarget) {
+      this.containerTarget.scrollTop = this.containerTarget.scrollHeight
+    }
+  }
 
   connect() {
     this.inputTarget.addEventListener("keypress", this.handleEnterPressed())

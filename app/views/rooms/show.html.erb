@@ -3,14 +3,17 @@
 
 <p class="uppercase font-bold text-indigo-600 tracking-widest"><%= @room.name %></p>
 
-<div data-controller="chat" data-chat-room="<%= @room.id %>" data-chat-last="<%= @last_id %>" data-chat-more="<%= @has_more %>" >
+<div class="container mx-auto">
 
-  <div data-behavior="messages">
-    <%= render 'messages/list', messages: @message, room_user: @room_user %>
+  <div data-controller="chat" data-chat-room="<%= @room.id %>">
+
+    <div class="p-4 rounded bg-gray-400 overflow-y-scroll h-64" data-behavior="messages" data-target="chat.container">
+      <%= render 'messages/list', messages: @message, room_user: @room_user %>
+    </div>
+
+    <%= form_with(model: [@room, Message.new], data: { target: 'chat.form' }) do |form| %>
+      <%= form.text_area :body, rows: 1, autofocus: true, 'data-target': 'chat.input', class: "mt-4 px-4 py-2 w-full rounded" %>
+    <% end %>
+
   </div>
-
-  <%= form_with(model: [@room, Message.new], data: { target: 'chat.form' }) do |form| %>
-    <%= form.text_area :body, rows: 1, autofocus: true, 'data-target': 'chat.input' %>
-  <% end %>
-
 </div>

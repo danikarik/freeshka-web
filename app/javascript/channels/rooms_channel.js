@@ -22,7 +22,6 @@ export default consumer.subscriptions.create("RoomsChannel", {
   },
 
   received(data) {
-    console.log(data)
     const chat = getChatContainer(data)
     if (chat.length > 0) {
       const messages = getMessages(chat)
@@ -40,6 +39,7 @@ export default consumer.subscriptions.create("RoomsChannel", {
         }
 
         messages[0].insertAdjacentHTML("beforeend", data.message)
+        messages[0].scrollTop = messages[0].scrollHeight
       } else {
         const roomLink = getRoomLink(data)
         if (roomLink.length > 0) {

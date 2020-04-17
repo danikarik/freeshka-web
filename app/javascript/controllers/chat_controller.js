@@ -9,18 +9,26 @@ export default class extends Controller {
     if (this.hasContainerTarget) {
       this.containerTarget.scrollTop = this.containerTarget.scrollHeight
     }
+
+    if (this.hasMessageTarget) {
+      this.alignSelfMessages()
+    }
+
+    this.observer = new MutationObserver(this.newObserver())
   }
 
   connect() {
     document.addEventListener("click", this.handleActivityResume())
     this.inputTarget.addEventListener("keypress", this.handleEnterPressed())
     this.containerTarget.addEventListener("scroll", this.handleTopScroll())
+    this.observer.observe(this.containerTarget, this.config)
   }
 
   disconnect() {
     document.removeEventListener("click", this.handleActivityResume())
     this.inputTarget.removeEventListener("keypress", this.handleEnterPressed())
     this.containerTarget.removeEventListener("scroll", this.handleTopScroll())
+    this.observer.disconnect()
   }
 
   send() {
@@ -52,6 +60,24 @@ export default class extends Controller {
       return this.messageTargets[0].getAttribute("data-id")
     }
     return 0
+  }
+
+  newObserver() {
+    return (mutationsList, observer) => {
+      for (let mutation of mutationsList) {
+        if (mutation.type === "childList") {
+          this.alignSelfMessages()
+        }
+      }
+    }
+  }
+
+  alignSelfMessages() {
+    this.messageTargets.map((message) => {
+      if (this.user == message.getAttribute("data-user")) {
+        message.classList.add("self-end", "bg-green-100")
+      }
+    })
   }
 
   handleEnterPressed() {
@@ -89,5 +115,17 @@ export default class extends Controller {
       return true
     }
     return false
+  }
+
+  get user() {
+    return parseInt(this.data.get("user"))
+  }
+
+  get config() {
+    return {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    }
   }
 }

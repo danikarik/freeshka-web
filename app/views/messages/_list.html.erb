@@ -4,5 +4,5 @@
     <% unread_messages = true %>
     <%= render 'messages/divider' %>
   <% end %>
-  <%= render 'messages/message', message: message, current_user_id: @room_user.user_id %>
+  <%= render 'messages/message', message: message %>
 <% end %>

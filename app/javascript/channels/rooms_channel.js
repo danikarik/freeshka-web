@@ -32,7 +32,7 @@ export default consumer.subscriptions.create("RoomsChannel", {
           }
 
           if (Notification.permission === "granted") {
-            new Notification(data.user, { body: data.body })
+            new Notification(data.user.email, { body: data.body })
           }
         } else {
           this.sendLastRead({ room: data.room_id })

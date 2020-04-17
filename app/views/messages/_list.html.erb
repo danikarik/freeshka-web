@@ -1,10 +1,8 @@
-<div class="flex flex-col">
-  <% unread_messages = false %>
-  <% @messages.each do |message| %>
-    <% if !unread_messages && @room_user.last_read_at && @room_user.last_read_at < message.created_at %>
-      <% unread_messages = true %>
-      <%= render 'messages/divider' %>
-    <% end %>
-    <%= render 'messages/message', message: message, current_user_id: @room_user.user_id %>
+<% unread_messages = false %>
+<% @messages.each do |message| %>
+  <% if !unread_messages && @room_user.last_read_at && @room_user.last_read_at < message.created_at %>
+    <% unread_messages = true %>
+    <%= render 'messages/divider' %>
   <% end %>
-</div>
+  <%= render 'messages/message', message: message, current_user_id: @room_user.user_id %>
+<% end %>

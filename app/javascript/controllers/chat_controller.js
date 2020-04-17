@@ -1,8 +1,9 @@
 import { Controller } from "stimulus"
 import roomChannel from "../channels/rooms_channel"
+import dataChannel from "../channels/room_data_channel"
 
 export default class extends Controller {
-  static targets = ["form", "input", "container"]
+  static targets = ["form", "input", "container", "message"]
 
   initialize() {
     if (this.hasContainerTarget) {
@@ -11,13 +12,15 @@ export default class extends Controller {
   }
 
   connect() {
-    this.inputTarget.addEventListener("keypress", this.handleEnterPressed())
     document.addEventListener("click", this.handleActivityResume())
+    this.inputTarget.addEventListener("keypress", this.handleEnterPressed())
+    this.containerTarget.addEventListener("scroll", this.handleTopScroll())
   }
 
   disconnect() {
-    this.inputTarget.removeEventListener("keypress", this.handleEnterPressed())
     document.removeEventListener("click", this.handleActivityResume())
+    this.inputTarget.removeEventListener("keypress", this.handleEnterPressed())
+    this.containerTarget.removeEventListener("scroll", this.handleTopScroll())
   }
 
   send() {
@@ -37,6 +40,20 @@ export default class extends Controller {
     }
   }
 
+  request() {
+    dataChannel.requestMessages({
+      room: this.room,
+      lastId: this.lastMessageId(),
+    })
+  }
+
+  lastMessageId() {
+    if (this.hasMessageTarget) {
+      return this.messageTargets[0].getAttribute("data-id")
+    }
+    return 0
+  }
+
   handleEnterPressed() {
     return (e) => {
       if (e.keyCode === 13) {
@@ -51,6 +68,14 @@ export default class extends Controller {
   handleActivityResume() {
     return (e) => {
       this.update()
+    }
+  }
+
+  handleTopScroll() {
+    return (e) => {
+      if (this.containerTarget.scrollTop === 0) {
+        this.request()
+      }
     }
   }
 

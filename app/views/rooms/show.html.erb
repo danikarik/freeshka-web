@@ -7,8 +7,8 @@
 
   <div data-controller="chat" data-chat-room="<%= @room.id %>">
 
-    <div class="p-4 rounded bg-gray-400 overflow-y-scroll h-160" data-behavior="messages" data-target="chat.container">
-      <%= render 'messages/list', messages: @message, room_user: @room_user %>
+    <div class="p-4 rounded bg-gray-400 overflow-y-scroll h-160 flex flex-col" data-behavior="messages" data-target="chat.container">
+      <%= render 'messages/list', messages: @messages, room_user: @room_user %>
     </div>
 
     <%= form_with(model: [@room, Message.new], data: { target: 'chat.form' }) do |form| %>

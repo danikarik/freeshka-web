@@ -57,4 +57,6 @@ gem 'devise', '~> 4.7'
 
 gem 'rubocop', '~> 0.80.1'
 
+gem 'rubocop-rails', require: false
+
 gem 'rails-i18n', '~> 6.0'

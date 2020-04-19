@@ -33,6 +33,21 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        # create new room
+        @room = Room.new(name: @post.title, post_id: @post.id)
+        if @room.save
+          # create room user
+          @room_user = @room.room_users.new(user_id: current_user.id)
+          unless @room_user.save
+            format.html { render :new, notice: @room_user.errors }
+            format.json { render json: @room_user.errors, status: :unprocessable_entity }
+          end
+        else
+          format.html { render :new, notice: @room.errors }
+          format.json { render json: @room.errors, status: :unprocessable_entity }
+        end
+
+        # response
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else

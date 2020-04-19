@@ -27,10 +27,15 @@
         <tr>
           <td><%= room.name %></td>
           <td><%= link_to 'Show', room %></td>
-          <td><%= link_to 'Edit', edit_room_path(room) %></td>
-          <td><%= link_to 'Destroy', room, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-          <td><%= link_to 'Join', room_room_users_path(room), method: :post  %></td>
-          <td><%= link_to 'Leave', room_room_users_path(room), method: :delete  %></td>
+          <% if current_user_room_owner(room) %>
+            <td><%= link_to 'Edit', edit_room_path(room) %></td>
+            <td><%= link_to 'Destroy', room, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          <% end %>
+          <% if current_user_room_member(room) %>
+            <td><%= link_to 'Leave', room_room_users_path(room), method: :delete  %></td>
+          <% else %>
+            <td><%= link_to 'Join', room_room_users_path(room), method: :post  %></td>
+          <% end %>
         </tr>
       <% end %>
       </tbody>

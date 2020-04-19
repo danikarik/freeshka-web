@@ -2,7 +2,9 @@ class MessageLoaderJob < ApplicationJob
   queue_as :default
 
   def perform(room, last_id, current_user)
-    messages = room.messages.where('id < ?', last_id).order(created_at: :desc).limit(10)
+    messages = room.messages
+                   .where('id < ?', last_id)
+                   .order(created_at: :desc).limit(10)
 
     ActionCable.server.broadcast "rooms:#{room.id}:data:#{current_user.id}", {
       messages: collect(messages, current_user.id),

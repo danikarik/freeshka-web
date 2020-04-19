@@ -110,8 +110,7 @@ export default class extends Controller {
   }
 
   get next() {
-    const raw = this.data.get("next").toLowerCase()
-    if (raw === "true") {
+    if (this.data.get("next").toLowerCase() === "true") {
       return true
     }
     return false
@@ -122,10 +121,6 @@ export default class extends Controller {
   }
 
   get config() {
-    return {
-      attributes: true,
-      childList: true,
-      subtree: true,
-    }
+    return { childList: true }
   }
 }

@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :load_dict, only: [:new, :create, :edit]
 
   # GET /posts
   # GET /posts.json
@@ -86,11 +85,6 @@ class PostsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_post
     @post = Post.find(params[:id])
-  end
-
-  def load_dict
-    @category_options = Category.all.where(parent: nil)
-    @city_options = City.all.where(parent: nil)
   end
 
   # Only allow a list of trusted parameters through.

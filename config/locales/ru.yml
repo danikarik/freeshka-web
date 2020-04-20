@@ -21,4 +21,5 @@ ru:
     minimum: "минимальная длина"
     submit: "Создать"
   post:
+    title: "Заголовок"
     created_by: "Опубликовано от %{user} %{created_at} назад"

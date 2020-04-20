@@ -1,14 +1,18 @@
-<ul>
-  <% @categories.each do |category| %>
-    <li><%= category.name %></li>
-    <div class="pl-16">
-      <% if category.categories.count > 0 %>
-        <ul>
-          <% category.categories.each do |subcategory| %>
-            <li><%= subcategory.name %></li>
-          <% end %>
-        </ul>
-      <% end %>
+<div class="mt-4">
+  <%= form.collection_check_boxes(:category_ids, category_options(), :id, :name) do |cat| %>
+    <div class="px-4 py-2">
+      <%= cat.check_box %>
+      <span>
+        <%= cat.text %>
+      </span>
+      <div class="ml-4">
+        <%= form.collection_check_boxes(:category_ids, sub_category_options(cat.value), :id, :name) do |sub| %>
+          <%= sub.check_box %>
+          <span>
+            <%= sub.text %>
+          </span>
+        <% end %>
+      </div>
     </div>
   <% end %>
-</ul>
+</div>

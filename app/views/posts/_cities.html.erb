@@ -1,14 +1,18 @@
-<ul>
-  <% @top_level_cities.each do |top_city| %>
-    <li><%= top_city.name %></li>
-    <div class="pl-16">
-    <% if top_city.cities.count > 0 %>
-      <ul>
-        <% top_city.cities.each do |city| %>
-          <li><%= city.name %></li>
+<div class="mt-4">
+  <%= form.collection_check_boxes(:city_ids, city_options(), :id, :name) do |state| %>
+    <div class="px-4 py-2">
+      <%= state.check_box %>
+      <span>
+        <%= state.text %>
+      </span>
+      <div class="ml-4">
+        <%= form.collection_check_boxes(:city_ids, state_city_options(state.value), :id, :name) do |city| %>
+          <%= city.check_box %>
+          <span>
+            <%= city.text %>
+          </span>
         <% end %>
-      </ul>
-    <% end %>
+      </div>
     </div>
   <% end %>
-</ul>
+</div>

@@ -1,13 +1,14 @@
-<div class="mt-4">
+<div data-controller="city-selector" class="my-4 grid grid-cols-1 gap-2">
   <%= form.collection_check_boxes(:city_ids, city_options(), :id, :name) do |state| %>
-    <div class="px-4 py-2">
-      <%= state.check_box %>
+    <div data-target="city-selector.city" class="px-4 py-2 border rounded border-gray-400">
       <span>
         <%= state.text %>
       </span>
-      <div class="ml-4">
+      <div class="">
+        <%= state.check_box(class: "main-checkbox") %>
+        <span>Все</span>
         <%= form.collection_check_boxes(:city_ids, state_city_options(state.value), :id, :name) do |city| %>
-          <%= city.check_box %>
+          <%= city.check_box(class: "child-checkbox") %>
           <span>
             <%= city.text %>
           </span>

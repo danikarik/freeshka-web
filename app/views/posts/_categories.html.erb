@@ -1,13 +1,14 @@
-<div class="mt-4">
+<div data-controller="category-selector" class="mt-4">
   <%= form.collection_check_boxes(:category_ids, category_options(), :id, :name) do |cat| %>
-    <div class="px-4 py-2">
-      <%= cat.check_box %>
+    <div data-target="category-selector.category" class="px-4 py-2 border rounded border-gray-400">
       <span>
         <%= cat.text %>
       </span>
-      <div class="ml-4">
+      <div class="">
+        <%= cat.check_box(class: "main-checkbox") %>
+        <span>Все</span>
         <%= form.collection_check_boxes(:category_ids, sub_category_options(cat.value), :id, :name) do |sub| %>
-          <%= sub.check_box %>
+          <%= sub.check_box(class: "child-checkbox") %>
           <span>
             <%= sub.text %>
           </span>

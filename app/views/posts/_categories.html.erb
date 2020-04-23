@@ -1,10 +1,10 @@
 <div data-controller="category-selector" class="mt-4">
   <%= form.collection_check_boxes(:category_ids, category_options(), :id, :name) do |cat| %>
-    <div data-target="category-selector.category" class="px-4 py-2 border rounded border-gray-400">
-      <span>
+    <div x-data="{ open: false }" data-target="category-selector.category" class="px-4 py-2 border rounded border-gray-400 cursor-pointer hover:bg-indigo-100">
+      <span @click="open = !open" class="text-lg tracking-wider font-semibold hover:text-indigo-600">
         <%= cat.text %>
       </span>
-      <div class="">
+      <div x-show="open">
         <%= cat.check_box(class: "main-checkbox") %>
         <span>Все</span>
         <%= form.collection_check_boxes(:category_ids, sub_category_options(cat.value), :id, :name) do |sub| %>

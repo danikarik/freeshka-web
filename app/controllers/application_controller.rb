@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   layout :layout_by_resource
 
   def after_sign_in_path_for(resource)
@@ -14,5 +16,12 @@ class ApplicationController < ActionController::Base
     # else
     #   'application'
     # end
+  end
+
+  def configure_permitted_parameters
+    update_keys = [:email, :name, :description, :org_form_id,
+                   :password, :password_confirmation, :current_password]
+
+    devise_parameter_sanitizer.permit(:account_update, keys: update_keys)
   end
 end

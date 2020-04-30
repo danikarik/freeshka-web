@@ -8,6 +8,21 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autocomplete: "name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, rows: 3, autocomplete: "description" %>
+  </div>
+
+  <div class="field">
+    <%= f.collection_select :org_form_id, org_form_options(), :id, :name, include_blank: true %>
+    <%= f.label :org_form_id %><br />
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

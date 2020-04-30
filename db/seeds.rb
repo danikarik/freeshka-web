@@ -45,8 +45,10 @@ cities = City.create([
 
 categories = Category.create([{ name: 'Услуги' }])
 
-subcategories = Category.create([
-                                    { name: 'Реклама', parent: categories[0] },
-                                    { name: 'Дизайн', parent: categories[0] },
-                                    { name: 'Разработка', parent: categories[0] }
-                                ])
+subcategories = Category.create([{ name: 'Реклама', parent: categories[0] },
+                                 { name: 'Дизайн', parent: categories[0] },
+                                 { name: 'Разработка', parent: categories[0] }])
+
+org_forms = OrgForm.create([{ name: 'ТОО', label: 'ТОО' },
+                            { name: 'ИП', label: 'ИП' },
+                            { name: 'ФЛ', label: 'ФЛ' }])

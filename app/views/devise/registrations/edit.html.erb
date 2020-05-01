@@ -6,6 +6,7 @@
   <div>
     <% if resource.avatar.attached? %>
       <%= image_tag resource.avatar.variant(resize: '100x100'), class: 'rounded-full' %>
+      <%= link_to 'Remove avatar', delete_avatar_path, class: 'text-red-600', method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
   </div>
 

@@ -1,0 +1,11 @@
+<div class="w-full">
+  <% if post.attachments.count.positive? %>
+    <div class="flex flex-col">
+      <% post.attachments.each do |attachment| %>
+        <%= link_to attachment.filename, rails_blob_path(attachment, disposition: "preview") %>
+        <%= link_to 'Remove', delete_attachment_post_path(post.id, attachment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= form.file_field :attachments, multiple: true %>
+</div>

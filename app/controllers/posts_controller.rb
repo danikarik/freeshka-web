@@ -80,6 +80,12 @@ class PostsController < ApplicationController
     end
   end
 
+  def delete_attachment
+    @attachment = ActiveStorage::Attachment.find(params[:attachment_id])
+    @attachment.purge
+    redirect_back(fallback_location: @post)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -89,6 +95,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :content, category_ids: [], city_ids: [])
+    params.require(:post).permit(:title, :content, attachments: [],
+                                 category_ids: [], city_ids: [])
   end
 end

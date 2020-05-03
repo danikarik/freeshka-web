@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
   belongs_to :org_form, optional: true
 
+  has_many :phones, dependent: :destroy
+
   def username
     name.presence || email
   end

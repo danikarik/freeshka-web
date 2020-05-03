@@ -58,6 +58,18 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <div class="field">
+    <div data-controller="profile-phone" class="flex flex-col">
+      <div data-target="profile-phone.container">
+        <% current_user.phones.each do |phone| %>
+          <%= render 'phones/phone', phone: phone %>
+        <% end %>
+      </div>
+      <input type="text" data-target="profile-phone.input">
+      <button type="button" data-action="profile-phone#add">Add</button>
+    </div>
+  </div>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>

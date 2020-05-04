@@ -32,7 +32,20 @@ export default class extends Controller {
   disconnect() {}
 
   saveNumber() {
-    this.number = this.input.unmaskedvalue()
+    this.number = this.formated()
+  }
+
+  formated() {
+    let str = this.input.unmaskedvalue()
+    if (str.length > 10) {
+      if (str[0] === "7") {
+        return str.slice(1, str.length)
+      } else {
+        this.markAsInCompleted()
+      }
+    } else {
+      return str
+    }
   }
 
   markAsInCompleted() {
@@ -57,7 +70,7 @@ export default class extends Controller {
   add() {
     if (this.isValid()) {
       profilePhonesChannel.addPhone({ number: this.number })
-      this.clear()
     }
+    this.clear()
   }
 }

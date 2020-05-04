@@ -1,0 +1,11 @@
+<div data-controller="profile-phone" class="flex flex-col">
+  <div data-target="profile-phone.container" class="py-4 space-y-2">
+    <% current_user.phones.each do |phone| %>
+      <%= render 'phones/phone', phone: phone %>
+    <% end %>
+  </div>
+  <div class="flex px-4 py-2">
+    <input type="text" data-target="profile-phone.input" class="w-2/3 outline-none">
+    <button type="button" data-target="profile-phone.button" data-action="profile-phone#add" class="w-1/3 bg-indigo-600 disabled:bg-red-400 text-white">Add</button>
+  </div>
+</div>

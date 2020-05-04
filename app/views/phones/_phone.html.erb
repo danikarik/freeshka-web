@@ -1,4 +1,12 @@
 <div class="border border-indigo-600">
   <span><%= phone.number %></span>
-  <span><%= phone.is_verified %></span>
+  <% if phone.is_verified %>
+    <span class="px-4 py-2 rounded bg-green-600 text-green-800">Verified</span>
+  <% else %>
+    <button data-id="<%= phone.id %>" data-action="profile-phone#request" type="button" class="border-2 border-indigo-600 rounded">Send SMS</button>
+    <div data-id="<%= phone.id %>" data-target="profile-phone.code" class="hidden">
+      <input data-id="<%= phone.id %>" data-target="profile-phone.confirm" type="text">
+      <button data-id="<%= phone.id %>" type="button" data-action="profile-phone#verify">Verify</button>
+    </div>
+  <% end %>
 </div>

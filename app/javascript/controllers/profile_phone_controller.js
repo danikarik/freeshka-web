@@ -1,9 +1,10 @@
 import { Controller } from "stimulus"
 import Inputmask from "inputmask"
 import profilePhonesChannel from "../channels/profile_phones_channel"
+import phoneVerificationChannel from "../channels/phone_verification_channel"
 
 export default class extends Controller {
-  static targets = ["input", "button"]
+  static targets = ["input", "button", "code", "confirm"]
 
   initialize() {
     this.markAsInCompleted()
@@ -72,5 +73,43 @@ export default class extends Controller {
       profilePhonesChannel.addPhone({ number: this.number })
     }
     this.clear()
+  }
+
+  request(e) {
+    const button = e.target
+    const id = button.getAttribute("data-id")
+    if (id.length > 0) {
+      phoneVerificationChannel.sendRequest({ id: id })
+      this.showCodeTarget(id)
+    }
+  }
+
+  verify(e) {
+    const button = e.target
+    const id = button.getAttribute("data-id")
+    if (id.length > 0) {
+      const code = this.getConfirmCode(id)
+      if (code.length > 0) {
+        phoneVerificationChannel.confirmRequest({ id: id, code: code })
+      }
+    }
+  }
+
+  showCodeTarget(id) {
+    this.codeTargets.map((target) => {
+      if (target.dataset.id === id) {
+        target.classList.remove("hidden")
+      }
+    })
+  }
+
+  getConfirmCode(id) {
+    let res = ""
+    this.confirmTargets.map((target) => {
+      if (target.dataset.id === id) {
+        res = target.value
+      }
+    })
+    return res
   }
 }

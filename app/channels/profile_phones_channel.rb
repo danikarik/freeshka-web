@@ -1,6 +1,6 @@
 class ProfilePhonesChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "profile:#{current_user.id}:phones"
+    stream_from "user:#{current_user.id}:phones"
   end
 
   def unsubscribed

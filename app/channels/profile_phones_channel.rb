@@ -8,9 +8,22 @@ class ProfilePhonesChannel < ApplicationCable::Channel
   end
 
   def add_phone(data)
-    phone = Phone.create(number: data['number'],
-                         is_verified: false,
-                         user_id: current_user.id)
-    PhoneRelayJob.perform_later(phone, current_user)
+    phone = find_phone(data['number'])
+    if phone
+      PhoneRelayJob.perform_later(phone, current_user,
+                                  I18n.t('phone.duplicated'))
+    else
+      phone = Phone.create(number: data['number'],
+                           is_verified: false,
+                           user_id: current_user.id)
+
+      PhoneRelayJob.perform_later(phone, current_user, '')
+    end
+  end
+
+  private
+
+  def find_phone(number)
+    Phone.find_by(number: number)
   end
 end

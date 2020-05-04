@@ -23,3 +23,5 @@ ru:
   post:
     title: "Заголовок"
     created_by: "Опубликовано от %{user} %{created_at} назад"
+  phone:
+    duplicated: "Данный номер уже существует"

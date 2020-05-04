@@ -16,7 +16,11 @@ export default consumer.subscriptions.create("ProfilePhonesChannel", {
   received(data) {
     const container = getPhonesContainer()
     if (container.length > 0) {
-      container[0].insertAdjacentHTML("beforeend", data.phone)
+      if (data.error.length > 0) {
+        alert(data.error)
+      } else {
+        container[0].insertAdjacentHTML("beforeend", data.phone)
+      }
     }
   },
 

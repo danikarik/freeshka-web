@@ -11,8 +11,13 @@ class User < ApplicationRecord
   belongs_to :org_form, optional: true
 
   has_many :phones, dependent: :destroy
+  has_many :karmas, dependent: :destroy
 
   def username
     name.presence || email
+  end
+
+  def total_karma
+    karmas.sum(:point)
   end
 end

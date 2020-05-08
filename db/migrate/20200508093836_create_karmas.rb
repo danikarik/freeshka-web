@@ -4,7 +4,7 @@ class CreateKarmas < ActiveRecord::Migration[6.0]
       t.references :user, null: false, foreign_key: { to_table: 'users' }
       t.references :reviewer, null: false, foreign_key: { to_table: 'users' }
       t.integer :point
-      t.references :room, null: true, foreign_key: true
+      t.references :message, null: true, foreign_key: true
       t.references :post, null: true, foreign_key: true
 
       t.timestamps

@@ -7,7 +7,7 @@ class MessageLoaderJob < ApplicationJob
                    .order(created_at: :desc).limit(10)
 
     ActionCable.server.broadcast "rooms:#{room.id}:data:#{current_user.id}", {
-      messages: collect(messages, current_user.id),
+      messages: collect(messages),
       room_id: room.id,
       count: messages.count
     }
@@ -15,13 +15,12 @@ class MessageLoaderJob < ApplicationJob
 
   private
 
-  def collect(messages, current_user_id)
-    messages.map { |message| render(message, current_user_id) }
+  def collect(messages)
+    messages.map { |message| render(message) }
   end
 
-  def render(message, current_user_id)
+  def render(message)
     ApplicationController.render(partial: 'messages/message',
-                                 locals: { message: message,
-                                           current_user_id: current_user_id })
+                                 locals: { message: message })
   end
 end

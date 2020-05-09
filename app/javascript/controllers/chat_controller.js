@@ -1,6 +1,7 @@
 import { Controller } from "stimulus"
 import roomChannel from "../channels/rooms_channel"
 import dataChannel from "../channels/room_data_channel"
+import karmaChannel from "../channels/room_karma_channel"
 
 export default class extends Controller {
   static targets = ["form", "input", "container", "message"]
@@ -77,6 +78,14 @@ export default class extends Controller {
       if (this.user == message.getAttribute("data-user")) {
         message.classList.add("self-end", "bg-green-100")
       }
+    })
+  }
+
+  upvote(e) {
+    karmaChannel.upvoteMessage({
+      user: e.target.dataset.user,
+      reviewer: this.user,
+      message: e.target.dataset.id,
     })
   }
 

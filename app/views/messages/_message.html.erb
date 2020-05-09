@@ -12,11 +12,8 @@
       <%= message.body %>
     </span>
     <span class="text-xs text-gray-600">
-      <%= message.created_at.strftime("%k:%M, %d %B, %Y") %>
+      <%= l(message.created_at, format: '%k:%M, %d %B, %Y') %>
     </span>
-    <div>
-      <button class="text-orange-600 font-semibold text-xs">Up</button>
-      <span class="text-xs"><%= message.karma %></span>
-    </div>
+    <%= render 'messages/karma', message: message %>
   </div>
 </div>

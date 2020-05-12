@@ -18,7 +18,7 @@
 
 # Countless extra: Paginate without any count, saving one query per rendering
 # See https://ddnexus.github.io/pagy/extras/countless
-# require 'pagy/extras/countless'
+require 'pagy/extras/countless'
 # Pagy::VARS[:cycle] = false    # default
 
 # Elasticsearch Rails extra: Paginate `ElasticsearchRails::Results` objects
@@ -76,7 +76,7 @@
 
 # Support extra: Extra support for features like: incremental, infinite, auto-scroll pagination
 # See https://ddnexus.github.io/pagy/extras/support
-# require 'pagy/extras/support'
+require 'pagy/extras/support'
 
 # Items extra: Allow the client to request a custom number of items per page with an optional selector UI
 # See https://ddnexus.github.io/pagy/extras/items
@@ -112,7 +112,6 @@ require 'pagy/extras/trim'
 # Instance variables
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
 # Pagy::VARS[:items] = 20                                   # default
-Pagy::VARS[:items] = 2
 
 # Other Variables
 # See https://ddnexus.github.io/pagy/api/pagy#other-variables

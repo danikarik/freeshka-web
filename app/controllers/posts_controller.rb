@@ -5,14 +5,14 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @pagy, @posts = pagy(Post.all)
+    @pagy, @posts = pagy_countless(Post.all)
 
     respond_to do |format|
       format.html
       format.json do
         render json: { entries: render_to_string(partial: 'entries',
                                                  formats: [:html]),
-                       pagination: view_context.pagy_nav(@pagy) }
+                       pagination: view_context.pagy_next_link(@pagy) }
       end
     end
   end

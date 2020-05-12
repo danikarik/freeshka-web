@@ -6,8 +6,8 @@
     <div data-target="infinite-scroll.entries" class="w-full">
       <%= render 'entries' %>
     </div>
-    <div data-target="infinite-scroll.pagination">
-      <%== pagy_nav(@pagy) %>
+    <div data-target="infinite-scroll.pagination" class="hidden">
+      <%== pagy_next_link(@pagy, '...') %>
     </div>
   </div>
 </div>

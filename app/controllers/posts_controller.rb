@@ -5,9 +5,16 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
-    @top_level_cities = City.all.where(parent_id: nil)
-    @categories = Category.all.where(parent_id: nil)
+    @pagy, @posts = pagy(Post.all)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: { entries: render_to_string(partial: 'entries',
+                                                 formats: [:html]),
+                       pagination: view_context.pagy_nav(@pagy) }
+      end
+    end
   end
 
   # GET /posts/1

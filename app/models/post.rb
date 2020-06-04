@@ -10,4 +10,8 @@ class Post < ApplicationRecord
   has_and_belongs_to_many :cities
 
   has_many_attached :attachments, dependent: :purge
+
+  def room_users
+    room.room_users.where.not(user_id: user.id)
+  end
 end

@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["entries", "pagination"]
 
   initialize() {
-    const options = { rootMargin: "0px" }
+    const options = { rootMargin: "50px" }
     this.observer = new IntersectionObserver((entries) => this.scroll(entries), options)
   }
 

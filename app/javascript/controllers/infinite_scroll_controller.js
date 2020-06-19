@@ -4,44 +4,37 @@ export default class extends Controller {
   static targets = ["entries", "pagination"]
 
   initialize() {
-    this.loading = false
+    const options = { rootMargin: "0px" }
+    this.observer = new IntersectionObserver((entries) => this.scroll(entries), options)
   }
 
-  scroll() {
+  connect() {
+    this.observer.observe(this.paginationTarget)
+  }
+
+  disconnect() {
+    this.observer.unobserve(this.paginationTarget)
+  }
+
+  scroll(entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        this.loadMore()
+      }
+    })
+  }
+
+  loadMore() {
     const next = this.paginationTarget.querySelector("a[rel='next']")
-    if (next === null) {
-      return
-    }
-
-    const url = next.href
-    const body = document.body
-    const html = document.documentElement
-
-    const height = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    )
-
-    if (window.pageYOffset >= height - window.innerHeight) {
-      this.loadMore(url)
-    }
-  }
-
-  loadMore(url) {
-    if (this.loading) return
-    this.loading = true
+    if (next === null) return
 
     Rails.ajax({
       type: "GET",
-      url: url,
+      url: next.href,
       dataType: "json",
       success: (data) => {
         this.entriesTarget.insertAdjacentHTML("beforeend", data.entries)
         this.paginationTarget.innerHTML = data.pagination
-        this.loading = false
       },
     })
   }

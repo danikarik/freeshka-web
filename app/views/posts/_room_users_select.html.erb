@@ -1,0 +1,7 @@
+Showing page <%= @page.number %> of <%= @page.recordset.page_count %> (<%= @page.recordset.records_count %> total messages):
+<%= render @page.records %>
+<% if @page.last? %>
+  No more pages!
+<% else %>
+  <%= link_to "Next page", post_path(page: @page.next_param) %>
+<% end %>

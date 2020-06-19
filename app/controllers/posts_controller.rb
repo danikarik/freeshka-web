@@ -20,6 +20,9 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    set_page_and_extract_portion_from @post.room_users,
+                                      ordered_by: { created_at: :desc,
+                                                    id: :desc }
   end
 
   # GET /posts/new

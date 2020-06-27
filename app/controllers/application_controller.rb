@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  include Pagy::Backend
-
   layout :layout_by_resource
 
   def after_sign_in_path_for(resource)

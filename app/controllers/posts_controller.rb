@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :search]
+  before_action :check_permission, only: [:search]
 
   # GET /posts
   # GET /posts.json
@@ -91,6 +92,17 @@ class PostsController < ApplicationController
     redirect_back(fallback_location: @post)
   end
 
+  def search
+    if params[:q].blank?
+      @members = []
+    else
+      query = "%#{params[:q]}%"
+      @members = User.joins(:room_users).where('(users.email LIKE ? OR users.name LIKE ?) AND room_users.room_id = ? AND users.id <> ?', query, query, @post.room, @post.user)
+    end
+
+    render partial: 'search'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -103,5 +115,9 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :content, attachments: [],
                                                    category_ids: [],
                                                    city_ids: [])
+  end
+
+  def check_permission
+    redirect_back fallback_location: posts_url unless current_user == @post.user
   end
 end

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resources :posts do
     member do
-      delete '/attachments/:attachment_id', to: 'posts#delete_attachment',
-                                            as: 'delete_attachment'
+      delete '/attachments/:attachment_id', to: 'posts#delete_attachment', as: 'delete_attachment'
+      get '/search', to: 'posts#search', as: 'search'
     end
   end
 

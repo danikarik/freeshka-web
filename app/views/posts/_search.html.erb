@@ -1,0 +1,6 @@
+<% @members.each do |member| %>
+  <div class="px-4 py-2 flex flex-col hover:bg-indigo-100">
+    <span class="text-sm"><%= member.username %></span>
+    <span class="text-xs text-gray-600"><%= member.email %></span>
+  </div>
+<% end %>

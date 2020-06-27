@@ -1,0 +1,19 @@
+<div class="p-2 bg-white hover:bg-indigo-100 flex flex-col <%= 'rounded-t' if post == @page.records.first %> <%= 'rounded-b' if post == @page.records.last %>">
+  <%= link_to post.title, post, class: "font-semibold text-lg hover:text-indigo-600" %>
+  <span class="text-sm text-gray-600">
+    <%= t('post.created_by', user: post.user.email, created_at: time_ago_in_words(post.created_at)) %>
+  </span>
+  <div class="mt-1 flex flex-row">
+    <% post.categories.each do |category| %>
+      <div class="px-2 py-1 rounded-full text-white text-xs bg-indigo-600">
+        <%= category.name %>
+      </div>
+    <% end %>
+  </div>
+  <% if post.user == current_user %>
+    <div class="mt-1 flex flex-row">
+      <%= link_to 'Редактировать', edit_post_path(post), class: "text-xs text-indigo-600" %>
+      <%= link_to 'Удалить', post, class: "ml-2 text-xs text-red-600", method: :delete, data: { confirm: 'Вы уверены?' } %>
+    </div>
+  <% end %>
+</div>

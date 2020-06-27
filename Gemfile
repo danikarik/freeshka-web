@@ -61,6 +61,4 @@ gem 'rubocop-rails', require: false
 
 gem 'rails-i18n', '~> 6.0'
 
-gem 'pagy', '~> 3.5'
-
 gem "geared_pagination", "~> 1.0"

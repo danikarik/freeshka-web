@@ -4,10 +4,10 @@
   </div>
   <div data-controller="infinite-scroll" class="mt-10 flex flex-col justify-start rounded">
     <div data-target="infinite-scroll.entries" class="w-full">
-      <%= render 'entries' %>
+      <%= render @page.records %>
     </div>
     <div data-target="infinite-scroll.pagination">
-      <%== pagy_next_link(@pagy, '...') %>
+      <%= render 'next_link' %>
     </div>
   </div>
 </div>

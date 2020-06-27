@@ -1,0 +1,7 @@
+<div class="hidden">
+  <% if @page.last? %>
+    <span>No more pages</span>
+  <% else %>
+    <%= link_to "Next", posts_path(page: @page.next_param), { rel: 'next' } %>
+  <% end %>
+</div>

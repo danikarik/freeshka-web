@@ -5,25 +5,21 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @pagy, @posts = pagy_countless(Post.all)
+    set_page_and_extract_portion_from(Post.all, ordered_by: { created_at: :desc,
+                                                              id: :desc })
 
     respond_to do |format|
       format.html
       format.json do
-        render json: { entries: render_to_string(partial: 'entries',
-                                                 formats: [:html]),
-                       pagination: view_context.pagy_next_link(@pagy) }
+        render json: { entries: render_to_string(@page.records, formats: [:html]),
+                       pagination: render_to_string(partial: 'next_link', formats: [:html]) }
       end
     end
   end
 
   # GET /posts/1
   # GET /posts/1.json
-  def show
-    set_page_and_extract_portion_from @post.room_users,
-                                      ordered_by: { created_at: :desc,
-                                                    id: :desc }
-  end
+  def show; end
 
   # GET /posts/new
   def new
@@ -31,8 +27,7 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /posts
   # POST /posts.json
@@ -106,6 +101,7 @@ class PostsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def post_params
     params.require(:post).permit(:title, :content, attachments: [],
-                                 category_ids: [], city_ids: [])
+                                                   category_ids: [],
+                                                   city_ids: [])
   end
 end

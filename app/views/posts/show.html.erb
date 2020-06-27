@@ -8,6 +8,7 @@
 <%= @post.content %>
 
 <% if @post.user == current_user %>
+  <input type="text" class="px-4 py-2" >
   <%= link_to 'Edit', edit_post_path(@post) %> |
 <% end %>
 <%= link_to 'Back', posts_path %>

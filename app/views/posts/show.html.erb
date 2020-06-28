@@ -6,13 +6,7 @@
 <%= @post.content %>
 <div class="container px-4 py-2">
   <% if @post.user == current_user %>
-    <div class="" role="search" data-controller="search" data-search-url="<%= search_post_url %>" data-action="click@window->search#resetOnClickOutside keydown->search#resetOnEscape" tabindex="-1">
-      <input type="search" aria-label="search" class="px-4 py-2 w-1/6" data-action="input->search#attemptSearch" data-target="search.input">
-      <div class="mt-1 bg-white w-1/6 shadow-lg rounded divide-y divide-indigo-200" data-target="search.results"></div>
-    </div>
-    <div>
-      <%= link_to 'Edit', edit_post_path(@post) %> |
-    </div>
+    <%= link_to 'Edit', edit_post_path(@post) %> |
   <% end %>
   <%= link_to 'Back', posts_path %>
 </div>

@@ -6,7 +6,10 @@
 <%= @post.content %>
 <div class="container px-4 py-2">
   <% if @post.user == current_user %>
-    <%= link_to 'Edit', edit_post_path(@post) %> |
+    <div class="mt-1 flex flex-row">
+      <%= link_to 'Редактировать', edit_post_path(@post), class: "text-xs text-indigo-600" %>
+      <%= link_to 'Удалить', @post, class: "ml-2 text-xs text-red-600", method: :delete, data: { confirm: 'Вы уверены?' } %>
+    </div>
   <% end %>
   <%= link_to 'Back', posts_path %>
 </div>

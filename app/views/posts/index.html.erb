@@ -1,13 +1,22 @@
 <div class="container mx-auto py-6">
-  <div class="px-4 py-3 bg-white flex justify-start rounded">
-    <%= link_to 'Создать', new_post_path, class: "px-4 py-2 text-indigo-600 hover:text-white hover:bg-indigo-600 text-center border-2 border-indigo-600 rounded" %>
-  </div>
-  <div data-controller="infinite-scroll" class="mt-10 flex flex-col justify-start rounded">
-    <div data-target="infinite-scroll.entries" class="w-full">
-      <%= render @page.records %>
+  <div class="bg-gray-300 py-3 px-6 rounded-t-lg">
+    <div class="flex justify-end">
+      <%= link_to 'New Post', new_post_path, class: "px-4 py-1 font-bold text-indigo-600 border-2 border-indigo-600 rounded-full" %>
     </div>
-    <div data-target="infinite-scroll.pagination">
-      <%= render 'next_link' %>
+    <div class="flex justify-center border-b-2 border-indigo-600">
+      <h1 class="text-4xl font-extrabold">Posts</h1>
+    </div>
+    <div class="h-64">
+    </div>
+  </div>
+  <div class="px-8 py-4 bg-white">
+    <div data-controller="infinite-scroll" class="flex flex-col justify-start rounded">
+      <div data-target="infinite-scroll.entries" class="w-full">
+        <%= render @page.records %>
+      </div>
+      <div data-target="infinite-scroll.pagination">
+        <%= render 'next_link' %>
+      </div>
     </div>
   </div>
 </div>

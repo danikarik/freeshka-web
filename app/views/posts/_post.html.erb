@@ -1,16 +1,19 @@
 <div class="p-2 bg-white hover:bg-indigo-100 flex flex-col <%= 'rounded-t' if post == @page.records.first %> <%= 'rounded-b' if post == @page.records.last %>">
-  <div>
-    <%= post_avatar(post) %>
-  </div>
-  <div class="flex justify-between">
-    <%= link_to post.title, post, class: "font-semibold text-lg hover:text-indigo-600" %>
-    <span class="text-sm text-gray-600"><%= post_time(post) %></span>
-  </div>
-  <div class="mt-1 flex flex-row">
-    <% post.categories.each do |category| %>
-      <div class="px-2 py-1 rounded-full text-white text-xs bg-indigo-600">
-        <%= category.name %>
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-1">
+      <%= post_avatar(post) %>
+    </div>
+    <div class="col-span-10 flex flex-col">
+      <%= link_to post.title, post, class: "font-semibold text-lg hover:text-indigo-600" %>
+      <span class="truncate"><%= strip_tags(post.content.to_s) %></span>
+      <div class="mt-1 flex flex-row">
+        <%= render 'post_categories', post: post %>
       </div>
-    <% end %>
+    </div>
+    <div class="col-span-1 text-right">
+      <span class="text-sm text-gray-600">
+        <%= post_time(post) %>
+      </span>
+    </div>
   </div>
 </div>

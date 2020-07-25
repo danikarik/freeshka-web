@@ -19,16 +19,16 @@ module PostsHelper
     if post.created_at > (Time.zone.today - 1)
       post.created_at.strftime('%H:%M')
     else
-      post.created_at.strftime('%d %b')
+      post.created_at.strftime('%b %d')
     end
   end
 
   def post_avatar(post)
     if post.user.avatar.attached?
-      image_tag post.user.avatar.variant(resize_to_limit: [48, 48]),
+      image_tag post.user.avatar.variant(resize: '48x48!'),
                 class: 'rounded-full'
     else
-      content_tag :span, post_user_initials(post.user), class: 'h-12 w-12 px-2 py-1 bg-indigo-600 text-white rounded-full'
+      render partial: 'user/avatar', locals: { user: post.user }
     end
   end
 

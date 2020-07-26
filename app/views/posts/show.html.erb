@@ -1,15 +1,31 @@
-<p id="notice"><%= notice %></p>
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-<%= @post.content %>
-<div class="container px-4 py-2">
-  <% if @post.user == current_user %>
-    <div class="mt-1 flex flex-row">
-      <%= link_to 'Редактировать', edit_post_path(@post), class: "text-xs text-indigo-600" %>
-      <%= link_to 'Удалить', @post, class: "ml-2 text-xs text-red-600", method: :delete, data: { confirm: 'Вы уверены?' } %>
+<div class="flex flex-col items-center gap-4">
+  <div class="mt-2">
+    <%= post_avatar(@post) %>
+  </div>
+  <div class="w-full font-bold uppercase text-xl text-center">
+    <%= @post.title %>
+  </div>
+  <div class="container px-4 py-2 shadow-lg rounded-md">
+    <%= @post.content %>
+    <div class="mt-2 flex flex-col">
+      <% @post.attachments.each do |attachment| %>
+        <div class="px-2 py-1 flex">
+          <svg class="fill-current text-black w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path></svg>
+          <%= link_to attachment.filename, rails_blob_path(attachment, disposition: "preview"), class: 'text-gray-600', target: :_blank %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-  <%= link_to 'Back', posts_path %>
+    <div class="mt-2 w-full flex justify-between">
+      <%= link_to 'Назад', posts_path, class: 'text-md text-indigo-600' %>
+      <% if @post.user == current_user %>
+        <div class="flex flex-row">
+          <%= link_to 'Редактировать', edit_post_path(@post), class: "text-md text-indigo-600" %>
+          <%= link_to 'Удалить', @post, class: "ml-2 text-md text-red-600", method: :delete, data: { confirm: 'Вы уверены?' } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <%= link_to 'Join', room_room_users_path(@post.room), method: :post, class: 'uppercase text-lg text-indigo-600 font-bold tracking-wide' %>
+  </div>
 </div>

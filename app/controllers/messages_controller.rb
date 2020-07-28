@@ -3,20 +3,17 @@ class MessagesController < ApplicationController
   before_action :set_room
 
   def create
-    message = @room.messages.new(message_params)
-    message.user = current_user
-    message.save
-
+    message = @room.messages.create(message_params)
     MessageRelayJob.perform_later(message)
   end
 
   private
 
   def set_room
-    @room = Room.find(params[:room_id])
+    @room = current_user.rooms.find(params[:room_id])
   end
 
   def message_params
-    params.require(:message).permit(:body)
+    params.require(:message).permit(:body).merge(user: current_user)
   end
 end

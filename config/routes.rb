@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :rooms do
-    resource :room_users
+    resource :room_user
     resources :messages
   end
 

@@ -4,6 +4,6 @@ module RoomsHelper
   end
 
   def current_user_room_member(room)
-    room.room_users.exists?(user_id: current_user.id)
+    current_user.rooms.include?(room)
   end
 end

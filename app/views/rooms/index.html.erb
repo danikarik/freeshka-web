@@ -32,9 +32,9 @@
             <td><%= link_to 'Destroy', room, method: :delete, data: {confirm: 'Are you sure?'} %></td>
           <% end %>
           <% if current_user_room_member(room) %>
-            <td><%= link_to 'Leave', room_room_users_path(room), method: :delete  %></td>
+            <td><%= link_to 'Leave', room_room_user_path(room), method: :delete  %></td>
           <% else %>
-            <td><%= link_to 'Join', room_room_users_path(room), method: :post  %></td>
+            <td><%= link_to 'Join', room_room_user_path(room), method: :post  %></td>
           <% end %>
         </tr>
       <% end %>
